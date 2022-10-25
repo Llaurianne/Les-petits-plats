@@ -177,11 +177,11 @@ main>div {
     right: 10px;
 }
 
-
 #search__advanced input {
     background: none;
     color: white;
     font-size: 18px;
+    max-width: 110px;
 }
 
 #search__advanced input:focus {
