@@ -5,16 +5,20 @@ import Recipe from '../factories/recipe.js';
 const resultsDOM = document.getElementById('results');
 const mainSearchBar = document.getElementById('main-bar');
 const advSearchFields = document.querySelectorAll('#search__advanced div input')
-const ingredientsDOM = document.querySelector('.ingredients .list')
-const applianceDOM = document.querySelector('.appliance .list')
-const utensilsDOM = document.querySelector('.utensils .list')
+const advDOM = {
+    ingredients: document.querySelector('.ingredients .list'),
+    appliance: document.querySelector('.appliance .list'),
+    utensils: document.querySelector('.utensils .list')
+};
 
 // Variables declarations
 let results = Object.values(recipes);
 let userSearch
-let ingredients = []
-let appliance = []
-let utensils = []
+let advResults = {
+    ingredients: [],
+    appliance: [],
+    utensils: []
+}
 
 // Search from the main bar in  the titles, ingredients and  description
 function searchRecipes() {
@@ -43,36 +47,29 @@ function displayRecipes() {
 function setAdvFields() {
     for (let i = 0; i < results.length; i++) {
         for (let j = 0; j < results[i].ingredients.length; j++) {
-            ingredients.push(formatStg(results[i].ingredients[j].ingredient))
-            ingredients = [...new Set(ingredients)]
+            advResults.ingredients.push(formatStg(results[i].ingredients[j].ingredient))
+            advResults.ingredients = [...new Set(advResults.ingredients)]
         }
-        appliance.push(formatStg(results[i].appliance));
-        appliance = [...new Set(appliance)]
+        advResults.appliance.push(formatStg(results[i].appliance));
+        advResults.appliance = [...new Set(advResults.appliance)]
 
-        utensils = utensils.concat(results[i].utensils);
-        for (let j = 0; j < utensils.length; j++) {
-            utensils[j] = formatStg(utensils[j])
+        advResults.utensils = advResults.utensils.concat(results[i].utensils);
+        for (let j = 0; j < advResults.utensils.length; j++) {
+            advResults.utensils[j] = formatStg(advResults.utensils[j])
         }
-        utensils = [...new Set(utensils)];
+        advResults.utensils = [...new Set(advResults.utensils)];
     }
+
 }
 
 // Display the ingredients, appliance et utensils in the advanced search fields
 function displayAdvFields() {
-    ingredients.forEach(elt => {
-        let newIngredient = document.createElement('p')
-        newIngredient.innerText = elt;
-        ingredientsDOM.appendChild(newIngredient);
-    })
-    appliance.forEach(elt => {
-        let newAppliance = document.createElement('p')
-        newAppliance.innerText = elt;
-        applianceDOM.appendChild(newAppliance);
-    })
-    utensils.forEach(elt => {
-        let  newUtensil = document.createElement('p')
-        newUtensil.innerText = elt;
-        utensilsDOM.appendChild(newUtensil);
+    advSearchFields.forEach(input => {
+        advResults[input.id].forEach(elt => {
+            let  newElt = document.createElement('p')
+            newElt.innerText = elt;
+            advDOM[input.id].appendChild(newElt);
+        })
     })
 }
 
@@ -91,12 +88,12 @@ function initializeResults() {
 
 // Empty DOM in the advanced research fields areas
 function initializeAdvFields() {
-    ingredientsDOM.innerHTML =  '';
-    ingredients.length = 0;
-    applianceDOM.innerHTML =  '';
-    appliance.length = 0;
-    utensilsDOM.innerHTML =  '';
-    utensils.length = 0;
+    advDOM.ingredients.innerHTML =  '';
+    advResults.ingredients.length = 0;
+    advDOM.appliance.innerHTML =  '';
+    advResults.appliance.length = 0;
+    advDOM.utensils.innerHTML =  '';
+    advResults.utensils.length = 0;
 }
 
 // Listen inputs in the main bar and trigger the corresponding actions
@@ -111,8 +108,6 @@ function updateResults() {
             results = Object.values(recipes);
         }
         displayRecipes();
-        setAdvFields();
-        displayAdvFields();
     })
 }
 
@@ -121,12 +116,33 @@ function openAdvSearch() {
         input.addEventListener('focusin', () =>
         {
             input.value = '';
+            setAdvFields();
+            displayAdvFields();
+            filterAdvFields()
             input.parentNode.classList.add('open');
+
         })
         input.addEventListener('focusout', () =>
         {
+            initializeAdvFields()
             input.value = formatStg(input.placeholder.split('un ')[1] + 's');
             input.parentNode.classList.remove('open');
+        })
+    })
+}
+
+// Filter advanced items depending on advanced search
+function filterAdvFields() {
+    advSearchFields.forEach(input => {
+        input.addEventListener('input', () => {
+            advDOM[input.id].innerHTML =  '';
+            advResults[input.id].forEach(elt => {
+                if (elt.toLowerCase().includes(input.value.toLowerCase()) || (input.value === '')) {
+                    let newFilteredElt = document.createElement('p')
+                    newFilteredElt.innerText = elt;
+                    advDOM[input.id].appendChild(newFilteredElt);
+                }
+            })
         })
     })
 }
@@ -135,8 +151,6 @@ function openAdvSearch() {
 function init() {
     openAdvSearch()
     displayRecipes()
-    setAdvFields()
-    displayAdvFields()
     updateResults()
 }
 
