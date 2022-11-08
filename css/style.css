@@ -121,6 +121,10 @@ main>div {
     row-gap: 10px;
 }
 
+#search__tags span:hover, #search__advanced:hover, #search__advanced p:hover {
+    cursor: pointer;
+}
+
 #search__tags p, #search__advanced div {
     position: relative;
     height: 37px;
@@ -141,6 +145,7 @@ main>div {
     top:0;
     right: 22px;
     font-size: 20px;
+    z-index: 1;
 }
 
 #search__advanced {
@@ -187,6 +192,7 @@ main>div {
 
 #search__advanced span {
     font-size: 30px;
+    height: inherit;
     line-height: 69px;
     right: 10px;
 }
@@ -210,7 +216,11 @@ main>div {
 
 #search__advanced .open {
     flex: 1;
-    height:inherit;
+    height: inherit;
+}
+
+#search__advanced .open span {
+    transform: rotate(180deg);
 }
 
 #search__advanced .open input{

@@ -1,15 +1,19 @@
 import recipes from '../../data/recipes.js'
 import Recipe from '../factories/recipe.js';
+import Filter from '../factories/filter.js';
 
 // DOM elements
 const resultsDOM = document.getElementById('results');
 const mainSearchBar = document.getElementById('main-bar');
-const advSearchFields = document.querySelectorAll('#search__advanced div input')
+const tagsBar = document.getElementById('search__tags');
+const advSearchInputs = document.querySelectorAll('#search__advanced div input')
+const advSearchDiv = document.querySelectorAll('#search__advanced>div')
 const advDOM = {
     ingredients: document.querySelector('.ingredients .list'),
     appliance: document.querySelector('.appliance .list'),
     utensils: document.querySelector('.utensils .list')
 };
+let currentDiv;
 
 // Variables declarations
 let results = Object.values(recipes);
@@ -59,12 +63,11 @@ function setAdvFields() {
         }
         advResults.utensils = [...new Set(advResults.utensils)];
     }
-
 }
 
 // Display the ingredients, appliance et utensils in the advanced search fields
 function displayAdvFields() {
-    advSearchFields.forEach(input => {
+    advSearchInputs.forEach(input => {
         advResults[input.id].forEach(elt => {
             let  newElt = document.createElement('p')
             newElt.innerText = elt;
@@ -111,29 +114,42 @@ function updateResults() {
     })
 }
 
+// Display the advanced items corresponding to the main search and able the advanced search
 function openAdvSearch() {
-    advSearchFields.forEach(input => {
-        input.addEventListener('focusin', () =>
-        {
-            input.value = '';
-            setAdvFields();
-            displayAdvFields();
-            filterAdvFields()
-            input.parentNode.classList.add('open');
-
-        })
-        input.addEventListener('focusout', () =>
-        {
-            initializeAdvFields()
-            input.value = formatStg(input.placeholder.split('un ')[1] + 's');
-            input.parentNode.classList.remove('open');
+    advSearchDiv.forEach(div => {
+        let input = div.querySelector('input');
+        div.addEventListener('click', () => {
+            if (!document.querySelector('.open')) {
+                initializeAdvFields()
+                input.focus();
+                input.value = '';
+                setAdvFields();
+                displayAdvFields();
+                filterAdvFields()
+                div.classList.add('open');
+                currentDiv = div;
+            }
         })
     })
+    document.addEventListener('click', (evt) => {
+        closeAdvSearch(evt)
+    })
+    document.addEventListener('keyup', (evt) => {
+        closeAdvSearch(evt)
+    })
+}
+
+function closeAdvSearch(evt) {
+    if (currentDiv && ((evt.type === 'keyup' && evt.key === 'Escape') || (evt.type==='click' && evt.target !== currentDiv && evt.target.parentNode && evt.target.parentNode !== currentDiv /*&& evt.target.parentNode.parentNode && evt.target.parentNode.parentNode !== currentDiv*/))) {
+        initializeAdvFields()
+        currentDiv.querySelector('input').value = formatStg(currentDiv.querySelector('input').placeholder.split('un ')[1] + 's');
+        currentDiv.classList.remove('open');
+    }
 }
 
 // Filter advanced items depending on advanced search
 function filterAdvFields() {
-    advSearchFields.forEach(input => {
+    advSearchInputs.forEach(input => {
         input.addEventListener('input', () => {
             advDOM[input.id].innerHTML =  '';
             advResults[input.id].forEach(elt => {
@@ -143,8 +159,22 @@ function filterAdvFields() {
                     advDOM[input.id].appendChild(newFilteredElt);
                 }
             })
+            addTag()
         })
     })
+    addTag()
+}
+
+// Display the tags
+function addTag() {
+    for (let elt in advDOM) {
+        advDOM[elt].childNodes.forEach(item => {
+            item.addEventListener('click', () => {
+                let filter = new Filter({type: elt, name: item.innerText});
+                tagsBar.appendChild(filter.tag);
+            })
+        })
+    }
 }
 
 // Main function
