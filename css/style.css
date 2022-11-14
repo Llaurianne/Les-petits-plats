@@ -76,7 +76,7 @@ main>div {
     margin-bottom: 20px;
 }
 
-#search__main span{
+#search__main i{
     position: absolute;
     right: 17px;
     height: 100%;
@@ -92,8 +92,14 @@ main>div {
 }
 
 @media screen and (max-width: 1024px) {
-    #search__main span {
+    #search__main i {
         right: 37px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #search__main {
+        margin-bottom: 10px;
     }
 }
 
@@ -107,51 +113,62 @@ main>div {
         height: 54px;
         font-size: 16px;
     }
-    #search__main span {
+    #search__main i {
         right: 40px;
         line-height: 54px;
     }
 }
 
 /* Tags */
-#search__tags, #search__advanced {
+#search__advanced {
     display: flex;
     flex-wrap: wrap;
     column-gap: 20px;
-    row-gap: 10px;
-}
-
-#search__tags span:hover, #search__advanced:hover, #search__advanced p:hover {
-    cursor: pointer;
-}
-
-#search__tags p, #search__advanced div {
-    position: relative;
-    height: 37px;
-    width: auto;
-    padding: 10px 55px 10px 20px;
-    color: #FFFFFF;
-    font-size: 14px;
-}
-
-#search__tags p {
-    margin: 5px 0 15px 0;
-}
-
-#search__tags span, #search__advanced span {
-    position: absolute;
-    height: 100%;
-    line-height: 37px;
-    top:0;
-    right: 22px;
-    font-size: 20px;
-    z-index: 1;
-}
-
-#search__advanced {
     margin-bottom: 25px;
     position: absolute;
     width: 100%;
+    z-index: 1;
+}
+
+#search__advanced div {
+    position: relative;
+    color: #FFFFFF;
+}
+
+#search__advanced i {
+    position: absolute;
+    font-size: 30px;
+    line-height: 23px;
+    right: 10px;
+}
+
+.tags {
+    min-width: 100%;
+}
+
+.tags p {
+    position: relative;
+    display: inline-block;
+    width: auto;
+    height: 37px;
+    font-size: 14px;
+    margin: 5px 20px 15px 0;
+    padding: 0 42px 0 20px;
+}
+
+.tags span {
+    line-height: 37px;
+    margin-right: 13px;
+}
+
+#search__advanced .tags i {
+    line-height: 37px;
+    right: 22px;
+    font-size: 20px;
+}
+
+.tags i:hover, #search__advanced div:not(.tags):hover, .list p:hover {
+    cursor: pointer;
 }
 
 .ingredients {
@@ -166,35 +183,11 @@ main>div {
     background: #ED6454;
 }
 
-.list {
-    display: none;
-}
-
-/* Advanced search */
-@media screen and (max-width: 680px) {
-    #search__advanced {
-        flex-direction: column;
-        gap: 10px;
-    }
-    #search__tags {
-        position: absolute;
-        right: 0;
-        width: calc(100% - 200px);
-    }
-}
-
-#search__advanced div {
+#search__advanced div:not(.tags) {
     height: 69px;
     padding: 23px;
     width: 170px;
     font-size: 18px;
-}
-
-#search__advanced span {
-    font-size: 30px;
-    height: inherit;
-    line-height: 69px;
-    right: 10px;
 }
 
 #search__advanced input {
@@ -214,12 +207,14 @@ main>div {
     opacity: 50%;
 }
 
-#search__advanced .open {
+
+#search__advanced div:not(.tags).open {
     flex: 1;
-    height: inherit;
+    height: auto;
+    max-width: 667px;
 }
 
-#search__advanced .open span {
+#search__advanced .open i {
     transform: rotate(180deg);
 }
 
@@ -237,24 +232,62 @@ main>div {
     row-gap: 10px;
 }
 
+
+.list {
+    display: none;
+}
+
 .list p {
     width: 33%;
+}
+
+@media screen and (max-width: 1200px) {
+    .list p {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .list p {
+        width: 100%;
+    }
+    #search__advanced {
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap:10px;
+        height: inherit;
+        align-content: flex-start;
+        max-height: 227px;
+    }
+    #search__advanced div:not(.tags).open {
+        position: absolute;
+        top:0;
+        left: 0;
+        z-index: 1;
+        width: 100%;
+    }
+    .tags {
+        order: 4;
+    }
+    .tags p {
+        display: block;
+        width: fit-content;
+        margin-top:0;
+        margin-bottom: 10px;
+    }
 }
 
 @media screen and (max-width: 480px) {
     #search__main, #search__tags, #search__advanced {
         padding: 0 24px;
     }
-    #search__advanced div {
-        height: 54px;
-        padding: 18px;
-        width: 150px;
-    }
-    #search__advanced span {
-        line-height: 54px;
-    }
     #search__advanced input {
         font-size: 16px;
+    }
+    #search__advanced div:not(.tags) {
+        height: 45px;
+        width: 140px;
+        padding: 11.5px;
     }
 }
 
@@ -263,7 +296,13 @@ main>div {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 50px;
-    margin-top: 151px;
+    margin-top: 171px;
+}
+
+#results #message {
+    font-size: 20px;
+    width: calc(300% + 100px);
+    line-height: inherit;
 }
 
 #results article {
@@ -278,24 +317,37 @@ main>div {
         grid-template-columns: 1fr 1fr;
         gap: 30px;
     }
+    #results #message {
+        width: calc(200% + 30px);
+    }
 }
 
 @media screen and (max-width: 768px) {
     #results {
         grid-template-columns: 1fr;
+        margin-top: 266px;
+    }
+    #results #message {
+        width: 100%;
     }
 }
 
 @media screen and (max-width: 480px) {
+    #results {
+        margin-top: 185px;
+    }
     #results article{
         border-radius: 0;
+    }
+    #results #message {
+        padding: 0 25px;
     }
 }
 
 #results img{
     background: #C7BEBE;
     width: 100%;
-    height: 50%;
+    height: 178px;
     border-radius: 0;
 }
 
@@ -303,7 +355,7 @@ main>div {
     display: flex;
     flex-wrap: wrap;
     height: 50%;
-    padding: 20px;
+    padding: 20px 18px 15px 20px;
 }
 
 #results h2 {
@@ -324,7 +376,7 @@ main>div {
     text-align: end;
 }
 
-#results p span {
+#results p i {
     position: relative;
     top: 6px;
     margin: -6px 6px;
@@ -333,8 +385,7 @@ main>div {
 #results ul, #results p:last-of-type {
     font-size: 12px;
     width: 50%;
-    max-height: 103.8px;
-
+    max-height: 72px;
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 6;
@@ -343,6 +394,12 @@ main>div {
     white-space: normal;
     text-align: left;
     font-family: 'Roboto', sans-serif;
-    line-height: 17.3px;
+    line-height: 12px;
     padding-left: 6px;
+}
+
+#results ul {
+    line-height: 14.4px;
+    padding-left: 0;
+    max-height: 86.4px;
 }

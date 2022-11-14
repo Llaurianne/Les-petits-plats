@@ -16,12 +16,15 @@ class Recipe {
         let div = document.createElement('div');
         let h2 = document.createElement('h2');
         h2.innerText = `${this._name}`;
-        let span = document.createElement('span')
-        span.className ='material-symbols-outlined';
-        span.innerText = 'schedule';
+        let i = document.createElement('i')
+        i.className ='material-symbols-outlined';
+        i.innerText = 'schedule';
         let time = document.createElement('p')
-        time.appendChild(span);
-        time.innerText = `${this._time} min`;
+        time.appendChild(i);
+        time.className = 'bold';
+        let timeSpan = document.createElement('span');
+        timeSpan.innerText = `${this._time} min`;
+        time.appendChild(timeSpan)
         let ul = document.createElement('ul')
         this._ingredients.forEach(elt => {
             let li = document.createElement('li');
@@ -35,8 +38,14 @@ class Recipe {
             if (elt.quantity) {
                 spanQuantity.innerText += `: ${elt.quantity}`;
             }
-            if (elt.unit) {
+            if (elt.unit && elt.unit !== 'grammes' && elt.unit.length>2) {
                 spanQuantity.innerText += ` ${elt.unit}`;
+            }
+            if (elt.unit && elt.unit !== 'grammes' && elt.unit.length<3) {
+                spanQuantity.innerText += `${elt.unit}`;
+            }
+            if (elt.unit && elt.unit === 'grammes') {
+                spanQuantity.innerText += `g`;
             }
         })
         let description = document.createElement('p');

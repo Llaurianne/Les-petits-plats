@@ -5,7 +5,7 @@ import Filter from '../factories/filter.js';
 // DOM elements
 const resultsDOM = document.getElementById('results');
 const mainSearchBar = document.getElementById('main-bar');
-const tagsBar = document.getElementById('search__tags');
+const tagsBar = document.querySelector('.tags');
 const advSearchInputs = document.querySelectorAll('#search__advanced div input')
 const advSearchDiv = document.querySelectorAll('#search__advanced>div')
 const advDOM = {
@@ -13,12 +13,17 @@ const advDOM = {
     appliance: document.querySelector('.appliance .list'),
     utensils: document.querySelector('.utensils .list')
 };
-let currentDiv;
+let currentDiv = '';
 
 // Variables declarations
 let results = Object.values(recipes);
 let userSearch
 let advResults = {
+    ingredients: [],
+    appliance: [],
+    utensils: []
+}
+let filters = {
     ingredients: [],
     appliance: [],
     utensils: []
@@ -42,9 +47,24 @@ function searchRecipes() {
 // Display the recipes in the results area
 function displayRecipes() {
     results.forEach(elt => {
-        let recipe = new Recipe(elt);
-        resultsDOM.appendChild(recipe.card);
+        if (filters.ingredients.every(ing1 => (elt.ingredients.findIndex(ing2 => formatStg(ing2.ingredient) === ing1 ) !== -1)) && filters.appliance.every(app => formatStg(elt.appliance) === app ) && filters.utensils.every(ut1 => elt.utensils.findIndex(ut2 => formatStg(ut2) === ut1 ) !== -1 )) {
+            let recipe = new Recipe(elt);
+            resultsDOM.appendChild(recipe.card);
+        }
     })
+    if (!resultsDOM.lastChild) {
+        let p = document.createElement('p');
+        p.setAttribute('id', 'message');
+        p.innerText = 'Aucune recette ne correspond à votre critère… vous pouvez chercher « tarte aux pommes », « poisson », etc';
+        resultsDOM.appendChild(p);
+    }
+}
+
+function updateFilters() {
+    for (let filter  in filters) {
+        let nodeList = [...document.querySelectorAll(`.tags .${filter} span`)]
+        filters[filter] = nodeList.map(elt => elt.innerText)
+    }
 }
 
 // Set the arrays of ingredients, appliance and utensils which are in the recipes
@@ -52,16 +72,16 @@ function setAdvFields() {
     for (let i = 0; i < results.length; i++) {
         for (let j = 0; j < results[i].ingredients.length; j++) {
             advResults.ingredients.push(formatStg(results[i].ingredients[j].ingredient))
-            advResults.ingredients = [...new Set(advResults.ingredients)]
+            advResults.ingredients = [...new Set(advResults.ingredients.sort())]
         }
         advResults.appliance.push(formatStg(results[i].appliance));
-        advResults.appliance = [...new Set(advResults.appliance)]
+        advResults.appliance = [...new Set(advResults.appliance.sort())]
 
         advResults.utensils = advResults.utensils.concat(results[i].utensils);
         for (let j = 0; j < advResults.utensils.length; j++) {
             advResults.utensils[j] = formatStg(advResults.utensils[j])
         }
-        advResults.utensils = [...new Set(advResults.utensils)];
+        advResults.utensils = [...new Set(advResults.utensils.sort())];
     }
 }
 
@@ -118,8 +138,8 @@ function updateResults() {
 function openAdvSearch() {
     advSearchDiv.forEach(div => {
         let input = div.querySelector('input');
-        div.addEventListener('click', () => {
-            if (!document.querySelector('.open')) {
+        document.addEventListener('click', (evt) => {
+            if ((evt.target === div || evt.target === div.querySelector('i') || evt.target === div.querySelector('input')) && !document.querySelector('.open')) {
                 initializeAdvFields()
                 input.focus();
                 input.value = '';
@@ -128,6 +148,7 @@ function openAdvSearch() {
                 filterAdvFields()
                 div.classList.add('open');
                 currentDiv = div;
+                evt.stopImmediatePropagation()
             }
         })
     })
@@ -140,10 +161,12 @@ function openAdvSearch() {
 }
 
 function closeAdvSearch(evt) {
-    if (currentDiv && ((evt.type === 'keyup' && evt.key === 'Escape') || (evt.type==='click' && evt.target !== currentDiv && evt.target.parentNode && evt.target.parentNode !== currentDiv /*&& evt.target.parentNode.parentNode && evt.target.parentNode.parentNode !== currentDiv*/))) {
+    if (document.querySelector('.open') && ((evt.type === 'keyup' && evt.key === 'Escape') || (evt.type==='click' && evt.target !== currentDiv && evt.target.parentNode && evt.target.parentNode !== currentDiv ) || (evt.type==='click' && evt.target === currentDiv.querySelector('i')))) {
         initializeAdvFields()
         currentDiv.querySelector('input').value = formatStg(currentDiv.querySelector('input').placeholder.split('un ')[1] + 's');
         currentDiv.classList.remove('open');
+        currentDiv = '';
+        evt.stopImmediatePropagation();
     }
 }
 
@@ -172,15 +195,33 @@ function addTag() {
             item.addEventListener('click', () => {
                 let filter = new Filter({type: elt, name: item.innerText});
                 tagsBar.appendChild(filter.tag);
+                resultsDOM.innerHTML =  '';
+                updateFilters()
+                displayRecipes()
+                deleteTag()
             })
+
         })
     }
 }
 
+// Delete filter tag
+function deleteTag() {
+    let delButton = document.querySelectorAll('.tags i')
+    delButton.forEach(tag => {
+        tag.addEventListener('click', () => {
+            tag.parentElement.remove();
+            resultsDOM.innerHTML =  '';
+            updateFilters()
+            displayRecipes()
+        })
+    })
+}
+
 // Main function
 function init() {
-    openAdvSearch()
     displayRecipes()
+    openAdvSearch()
     updateResults()
 }
 

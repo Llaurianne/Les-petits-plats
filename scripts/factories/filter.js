@@ -8,14 +8,13 @@ class Filter {
     get tag() {
         let p = document.createElement('p');
         p.className = this._type;
-        p.innerText = this._name;
         let span = document.createElement('span');
-        span.className = 'material-symbols-outlined';
-        span.innerText = 'cancel';
+        span.innerText = this._name;
+        let i = document.createElement('i');
+        i.className = 'material-symbols-outlined';
+        i.innerText = 'cancel';
         p.appendChild(span);
-        span.addEventListener('click', () => {
-            p.remove();
-        })
+        p.appendChild(i);
         return p;
     }
 }
