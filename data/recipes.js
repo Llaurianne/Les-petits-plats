@@ -75,7 +75,7 @@ const recipes = [
         "ingredients": [
             {
                 "ingredient": "Poulet",
-                "quantity" : 1          
+                "quantity" : 1
             },
             {
                 "ingredient": "Lait de coco",
@@ -98,7 +98,7 @@ const recipes = [
             {
                 "ingredient": "Huile d'olive",
                 "quantity": 1,
-               "unit": "cuillères à soupe"
+                "unit": "cuillères à soupe"
             }
         ],
         "time": 80,
@@ -148,34 +148,34 @@ const recipes = [
         "name": "Tarte au thon",
         "servings": 4,
         "ingredients":[
-           {
-               "ingredient": "Pâte feuilletée",
-               "quantity": 1 
-           },
-           {
-               "ingredient": "Thon en miettes",
-               "quantity": 130,
-               "unit": "grammes"
-           },
-           {
+            {
+                "ingredient": "Pâte feuilletée",
+                "quantity": 1
+            },
+            {
+                "ingredient": "Thon en miettes",
+                "quantity": 130,
+                "unit": "grammes"
+            },
+            {
                 "ingredient": "Tomate",
                 "quantity": 2
-           },
-           {
-               "ingredient": "Crème fraîche",
-               "quantity": 2,
-               "unit": "cuillères à soupe"
-           },
-           {
-               "ingredient": "gruyère râpé",
-               "quantity": 100,
-               "unit": "grammes"
-           },
-           {
+            },
+            {
+                "ingredient": "Crème fraîche",
+                "quantity": 2,
+                "unit": "cuillères à soupe"
+            },
+            {
+                "ingredient": "gruyère râpé",
+                "quantity": 100,
+                "unit": "grammes"
+            },
+            {
                 "ingredient": "Moutarde de Dijon",
                 "quantity": 1,
                 "unite": "cuillères à soupe"
-           }
+            }
         ],
         "time": 45,
         "description": "Étaler la pâte feuilleté aux dimensions du moule, étaler la moutarde sur la pâte feuilleté, ajouter le thon. Découper les tomates en rondelles et les poser sur le poisson, ajouter un peu de crème fraîche sur toute la tarte et recouvrez de gruyère râpé. Cuire au four 30 minutes",
@@ -228,7 +228,7 @@ const recipes = [
             {
                 "ingredient": "Pâte sablée",
                 "quantity": 1
-            }, 
+            },
             {
                 "ingredient": "Chocolat au lait",
                 "quantity": 300,
@@ -252,43 +252,43 @@ const recipes = [
         "time": 50,
         "description": "Étaler la pate dans les moules à tartelette. Faire cuire la pate 30 minutes. Découper le chocolat en morceau et le faire chauffer, y ajouter la crème liquide, ajouter le beurre et remuer jusqu'à avoir une pâte homogène. Verser la pate sur les tartelettes. Couper les fraises en 2 et les positionner sur ",
         "appliance":"Four",
-        "utensils":["moule à tartelettes (6)", "casserole"]
+        "utensils":["moule à tartelette (6)", "casserole"]
     }, {
         "id": 8,
         "name": "Brownie",
         "servings": 10,
         "ingredients":[
-           {
+            {
                 "ingredient": "Noix",
                 "quantity": "180",
                 "unit": "grammes"
-           },
-           {
-               "ingredient": "Chocolat noir",
-               "quantity": 150,
-               "unit": "grammes"
-           },
-           {
-               "ingredient": "Beurre",
-               "quantity": 120,
-               "unit": "grammes"
-           },
-           {
+            },
+            {
+                "ingredient": "Chocolat noir",
+                "quantity": 150,
+                "unit": "grammes"
+            },
+            {
+                "ingredient": "Beurre",
+                "quantity": 120,
+                "unit": "grammes"
+            },
+            {
                 "ingredient": "Oeuf",
                 "quantity": 2
-           },
-           {
-               "ingredient": "Sucre en Poudre",
-               "quantity": "110",
-               "unit": "grammes"
-           },
-           {
+            },
+            {
+                "ingredient": "Sucre en Poudre",
+                "quantity": "110",
+                "unit": "grammes"
+            },
+            {
                 "ingredient": "farine",
                 "quantity": 90,
                 "unit": "grammes"
-           }
+            }
 
-        ], 
+        ],
         "time": 60,
         "description": "Hachez les noix grossièrement. Faire fondre le chocolat avec le beurre. Mélanger les oeufs et le sucre et mélanger au chocolat. Ajouter la farine. Mélanger afin d'avoir quelque chose d'homogène puis incorporer les noix. Verser la préparation dans un moule de préférence rectangulaire. Cuire 2O à 25 minutes à 180°. Sortez du four et attendez quelques minutes pour démouler. Servir avec une boule de glace pour plus de gourmandise.",
         "appliance": "Four",
@@ -316,9 +316,9 @@ const recipes = [
             },
             {
                 "ingredient": "Huile d'olive"
-            }, 
+            },
             {
-                "ingredient": "Basilic"    
+                "ingredient": "Basilic"
             }
         ],
         "time": 15,
@@ -379,7 +379,7 @@ const recipes = [
                 "ingredient": "Jambon de parme",
                 "quantity": 4,
                 "unit": "tranches"
-            }, 
+            },
             {
                 "ingredient": "Pommes",
                 "quantity": 1
@@ -908,7 +908,7 @@ const recipes = [
                 "quantity": 1
             },
             {
-                "ingredient": "Huile d'olives"
+                "ingredient": "Huile d'olive"
             },
             {
                 "ingredient": "Oignon",
@@ -1299,7 +1299,7 @@ const recipes = [
                 "quantity": 50,
                 "unit": "grammes"
             }
-            
+
         ],
         "time": 60,
         "description":"Couper les courgettes dans le sens de la longueur. Vider les courgette dans un saladier. Réserver.Faire revenir la chair des courgettes dans 25cl d'huile d'olive. Ajouter l'oignon puis la viande hachée. Mettre la farce dans les courgettes. Ajouter le coulis de tomates. Mettre au four pendant 30 minutes. Avant la fin de la cuisson ajouter le fromage râpé",
@@ -1420,7 +1420,7 @@ const recipes = [
         "description":"Séparer les blancs d'oeufs. Faire fondre le chocolat au bain marie. Ajouter les jaunes et le sucre au chocolat hors du feu. Battre les blancs en neige. Ajouter les blancs au mélange de chocolat. Mélangez délicatement avec une spatule. Servir dans un plat ou dans des verres. Mettre au frais",
         "appliance": "Casserole",
         "utensils":["fouet", "spatule", "verres"]
-    }, 
+    },
     {
         "id": 42,
         "name": "Charlotte au poires",
@@ -1482,7 +1482,7 @@ const recipes = [
         "description":"Préchauffez le fours à 200°. Étaler la pate. La mettre dans un moule. Battre les oeufs avec le sucre. Ajouter le jus de citron et le beurre. Verser le tout sur la pate. Au four 30 minutes. Bon appetit ",
         "appliance": "Four",
         "utensils":["rouleau à patisserie", "moule à tarte", "presse citron"]
-    }, 
+    },
     {
         "id": 44,
         "name": "Crème dessert au chocolat",
@@ -1651,7 +1651,7 @@ const recipes = [
             }
         ],
         "time": 40,
-        "description":"Étaler la pate a pizza. Écraser les tomates pelées, les étaler sur la pâte, ajouter les lardons et les champignons. Ajouter le gruyère eet passer au four à 220° durant 20 minutes",
+        "description":"Étaler la pate a pizza. Écraser les tomates pelées, les étaler sur la pâte, ajouter les lardons et les champignons. Ajouter le gruyère et passer au four à 220° durant 20 minutes",
         "appliance": "Four",
         "utensils":["rouleau à patisserie", "râpe à fromage","couteau"]
     },

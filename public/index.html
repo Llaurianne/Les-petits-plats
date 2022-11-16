@@ -15,57 +15,52 @@
 
 <body>
 
-    <header>
-        <a href="index.html">
-            <img src="../assets/logo.png" alt="Logo Les petits plats">
-        </a>
-    </header>
+<header>
+    <a href="index.html">
+        <img src="../assets/logo.png" alt="Logo Les petits plats">
+    </a>
+</header>
 
-    <main>
-        <div id="search">
-            <div id="search__main">
-                <span class="material-symbols-outlined">search</span>
-                <label for="main-bar">Barre de recherche</label>
-                <input type="text" id="main-bar" placeholder="Rechercher une recette">
-            </div>
-
-            <div id="search__tags">
-                <!-- A générer en JS -->
-                <p class="ingredients">Coco<span class="material-symbols-outlined">cancel</span></p>
-                <p class="ingredients">Noisettes<span class="material-symbols-outlined">cancel</span></p>
-                <p class="utensils">Bol<span class="material-symbols-outlined">cancel</span></p>
-                <p class="appliance">Batteur<span class="material-symbols-outlined">cancel</span></p>
-            </div>
-
-            <!-- JS
-            1. agrandir '#search__advanced  div' width:223px quand le focus est sur l'input
-            2. value="" et placeholder="Rechercher un ingrédient" quand le focus est  sur l'input -->
-
-            <div id="search__advanced">
-                <div class="ingredients">
-                    <span class="material-symbols-outlined">expand_more</span>
-                    <label for="ingredients"></label>
-                    <input type="text" id="ingredients" value="Ingrédients">
-                </div>
-                <div class="appliance">
-                    <span class="material-symbols-outlined">expand_more</span>
-                    <label for="appliance"></label>
-                    <input type="text" id="appliance" value="Appareils">
-                </div>
-                <div class="utensils">
-                    <span class="material-symbols-outlined">expand_more</span>
-                    <label for="utensils"></label>
-                    <input type="text" id="utensils" value="Ustensiles">
-                </div>
-            </div>
+<main>
+    <div id="search">
+        <div id="search__main">
+            <i class="material-symbols-outlined">search</i>
+            <label for="main-bar">Barre de recherche</label>
+            <input type="text" id="main-bar" placeholder="Rechercher une recette">
         </div>
 
-        <div id="results">
 
+
+        <div id="search__advanced">
+            <div class="tags">
+            </div>
+            <div class="ingredients">
+                <i class="material-symbols-outlined">expand_more</i>
+                <label for="ingredients"></label>
+                <input type="text" id="ingredients" value="Ingrédients" placeholder="Rechercher un ingrédient">
+                <div class="list"></div>
+            </div>
+            <div class="appliance">
+                <i class="material-symbols-outlined">expand_more</i>
+                <label for="appliance"></label>
+                <input type="text" id="appliance" value="Appareils" placeholder="Rechercher un appareil">
+                <div class="list"></div>
+            </div>
+            <div class="utensils">
+                <i class="material-symbols-outlined">expand_more</i>
+                <label for="utensils"></label>
+                <input type="text" id="utensils" value="Ustensiles" placeholder="Rechercher un ustensile">
+                <div class="list"></div>
+            </div>
         </div>
+    </div>
 
-    </main>
-    <script type="module" src="../scripts/pages/index.js"></script>
+    <div id="results">
+
+    </div>
+
+</main>
+<script type="module" src="../scripts/pages/index.js"></script>
 
 </body>
 </html>
