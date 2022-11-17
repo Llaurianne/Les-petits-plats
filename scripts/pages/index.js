@@ -69,20 +69,20 @@ function updateFilters() {
 
 // Set the arrays of ingredients, appliance and utensils which are in the recipes
 function setAdvFields() {
-    for (let i = 0; i < results.length; i++) {
-        for (let j = 0; j < results[i].ingredients.length; j++) {
-            advResults.ingredients.push(formatStg(results[i].ingredients[j].ingredient))
-            advResults.ingredients = [...new Set(advResults.ingredients.sort())]
-        }
-        advResults.appliance.push(formatStg(results[i].appliance));
-        advResults.appliance = [...new Set(advResults.appliance.sort())]
+    results.forEach(rec => {
+        if (filters.ingredients.every(ing1 => (rec.ingredients.findIndex(ing2 => formatStg(ing2.ingredient) === ing1 ) !== -1)) && filters.appliance.every(app => formatStg(rec.appliance) === app ) && filters.utensils.every(ut1 => rec.utensils.findIndex(ut2 => formatStg(ut2) === ut1 ) !== -1 )) {
+            rec.ingredients.forEach(ing => {
+                advResults.ingredients.push(formatStg(ing.ingredient))
+                advResults.ingredients = [...new Set(advResults.ingredients.sort())]
+            })
+            advResults.appliance.push(formatStg(rec.appliance));
+            advResults.appliance = [...new Set(advResults.appliance.sort())]
 
-        advResults.utensils = advResults.utensils.concat(results[i].utensils);
-        for (let j = 0; j < advResults.utensils.length; j++) {
-            advResults.utensils[j] = formatStg(advResults.utensils[j])
+            advResults.utensils = advResults.utensils.concat(rec.utensils);
+            advResults.utensils = advResults.utensils.map(ut => formatStg(ut))
+            advResults.utensils = [...new Set(advResults.utensils.sort())];
         }
-        advResults.utensils = [...new Set(advResults.utensils.sort())];
-    }
+    })
 }
 
 // Display the ingredients, appliance et utensils in the advanced search fields
