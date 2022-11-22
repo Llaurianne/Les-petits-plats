@@ -31,7 +31,12 @@ let filters = {
 
 // Search from the main bar in  the titles, ingredients and  description
 function searchRecipes() {
-    recipes.forEach(rec => {
+    results = recipes.filter(rec =>
+            (rec.name.toLowerCase().includes(userSearch)) ||
+            (rec.ingredients.some(ing => ing.ingredient.includes(userSearch))) ||
+            (rec.description.toLowerCase().includes(userSearch))
+    );
+    /*forEach(rec => {
         let lcName = rec.name.toLowerCase();
         let lcIngredients;
         rec.ingredients.forEach(ing => {
@@ -41,7 +46,7 @@ function searchRecipes() {
         if (lcName.includes(userSearch) || lcIngredients.includes(userSearch) || lcDescription.includes(userSearch)) {
             results.push(rec);
         }
-    })
+    })*/
 }
 
 // Display the recipes in the results area
